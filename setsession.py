@@ -16,7 +16,18 @@ app.config.from_object(Config)
 
 # Session(app)
 
+# 设置session
 @app.route('/setsession')
 def setsession():
+    #  CJCKsWgWl/6kU4mmhLoVig4Q2s0BLFXXtqsczQ17LXc/6QXgMiXEyjr+PnLs4M1T0zQ=
     session['name'] = 'newworktest'
     return 'set session success'
+
+# 获取session
+@app.route('/getse‘ssion')
+def getsession():
+    response = session.get('name')
+    return response
+
+if __name__ == '__main__':
+    app.run()
