@@ -1,5 +1,5 @@
 # coding=utf-8
-from flask import Flask, make_response, current_app, request
+from flask import Flask,session, make_response, current_app, request
 # 导入配置文件
 from settings import Config
 # 导入转换器基类
@@ -12,8 +12,6 @@ from werkzeug.routing import BaseConverter
 app = Flask(__name__)
 # 配置对象config，类似于django中的配置文件
 app.config.from_object(Config)
-
-
 # app.config['DEBUG'] = True
 
 
@@ -36,9 +34,9 @@ app.url_map.converters['re'] = Regex
 
 
 # 限制访问,优化访问路径
-@app.route('/demo4/<re("[a-z]{3}"):name>')
-def demo4(name):
-    return 'demo4:%s' % name
+# @app.route('/<re("[a-z]{3}"):name>')
+# def demo4(name):
+#     return 'demo4:%s' % name
 
 
 # 原始的静态文件访问路径
@@ -54,39 +52,39 @@ def test4(filename):
     else:
         filename = 'html/' + filename
     # 把具体的文件返回给浏览器,make_response,current_app
-    resp = make_response(current_app.send_static_file(filename))
-    return resp
+    response = make_response(current_app.send_static_file(filename))
+    return response
 
 
 # 状态保持,http协议是无状态的,TCP/IP协议,三次握手四次挥手
 # cookie和session的区别:
 @app.route('/setcookie')
 def test3():
-    resp = make_response('set cookie success')
-    resp.set_cookie('user', 'python24', max_age=300)
-    return resp
+    response = make_response('set cookie success')
+    response.set_cookie('user', 'python24', max_age=300)
+    return response
 
 
 # 获取cookie,使用请求对象request
 @app.route('/getcookie')
 def test2():
-    resp = request.cookies.get('user')
-    return resp
+    response = request.cookies.get('user')
+    return response
 
 
 # 动态路由参数,语法格式<>,默认的数据的类型为str,兼容数值
 # 数值之间不兼容,只能限制数据类型,不能限制数据长度
-@app.route('/demo3/<int:num>')
-def test1(num):
-    return 'demo3:%s' % num
+# @app.route('/<int:num>')
+# def test1(num):
+#     return 'test1:%s' % num
 
 
-# 定义视图
-@app.route('/')
-def index():
-    return "hello world!"
+# # 定义视图
+# @app.route('/')
+# def index():
+#     return "hello world!"
 
 
 # 启动服务器
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)    # 仅仅在测试的时候打开debug测试模式
