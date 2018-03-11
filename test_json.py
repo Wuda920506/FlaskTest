@@ -28,8 +28,15 @@ import json
 @app.route('/json')
 def demo1():
     temp = {"name": "json", "age": 18}
-    # return json.dumps(temp)
-    return jsonify(temp)
+    return json.dumps(temp)
+    # return jsonify(temp)
+
+# 返回状态码, 通过return直接返回，可以返回不符合http协议的状态码
+# 意义： 主要实现钱后端的数据交互
+# return jsonify(error=666, errmsg='用户名或密码错误')
+@app.route('/status')
+def demo2():
+    return '状态码返回', 666
 
 if __name__ == '__main__':
     app.run()
