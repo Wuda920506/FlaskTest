@@ -14,7 +14,8 @@ app = Flask(__name__)
 app.config.from_object(Config)
 # app.config['DEBUG'] = True
 
-# Session(app)
+# 让session类和程序实例进行关联
+Session(app)
 
 # 设置session
 @app.route('/setsession')

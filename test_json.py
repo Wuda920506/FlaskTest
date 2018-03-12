@@ -40,6 +40,7 @@ def demo1():
 @app.route('/status')
 def demo2():
     # 异常处理abort(),类似于python中的raise语句，作用是处理异常信息，只能抛出http协议的状态码
+    # 一般都是放在try   except 中使用
     abort(404)
     return '状态码返回', 666
 

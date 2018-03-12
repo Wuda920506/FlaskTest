@@ -79,10 +79,10 @@ def test2():
 #     return 'test1:%s' % num
 
 
-# # 定义视图
-# @app.route('/')
-# def index():
-#     return "hello world!"
+# 定义视图
+@app.route('/')
+def index():
+    return "hello world!"
 
 
 # 启动服务器
